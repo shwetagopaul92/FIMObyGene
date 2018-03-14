@@ -1,0 +1,24 @@
+---
+title: "FIMObyGene"
+author: "Shweta Gopaulakrishnan"
+date: "3/14/2018"
+output: html_document
+---
+
+## FIMObyGene ShinyApp
+
+- A Shiny Interface to Transcription Factor Data
+ 
+
+- Data Origin :  
+Kimbie's CISBP FIMO scan TF bed files: /udd/rekrg/EpiPANDA/FIMO_results/ScanBedResults - http://cisbp.ccbr.utoronto.ca/faq.html is origin of PSSM 
+
+- Data Complexity : 
+
+Raw Data : 
+![](images/tf_raw.png)
+
+Each .bed file is split by chromosome.
+
+![](images/tf_split.png)
+
