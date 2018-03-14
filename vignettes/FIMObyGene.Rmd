@@ -22,3 +22,6 @@ Each .bed file is split by chromosome.
 
 ![](images/tf_split.png)
 
+## Run the APP
+ 
+- To run the app, grab the inet IP and pass it to runFIMObyGene(ip) 
