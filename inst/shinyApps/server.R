@@ -32,9 +32,11 @@ data(named_metadata_tf)
 ########################
 
 tfDrill <- function(tfname, chromosome){
-  setwd(paste0("/udd/reshg/chrfiles_tf/",tfname,"/"))
-  chrbed = fread(paste0(chromosome,".bed"))
-  chr = rename(chrbed, c("V1"= "chr","V2"="start","V3"="end","V4"="interval","V5"="score","V6"="strand","V7"="pvalue"))
+  #setwd(paste0("/udd/reshg/chrfiles_tf/",tfname,"/"))
+  #chrbed = fread(paste0(chromosome,".bed"))
+  myfile = paste0("/udd/reshg/chrfiles_tf/",tfname,"/",chromosome,".bed")
+  chrbed = fread(myfile)
+  chr = plyr::rename(chrbed, c("V1"= "chr","V2"="start","V3"="end","V4"="interval","V5"="score","V6"="strand","V7"="pvalue"))
   tfGRanges = GRanges(chr$chr, IRanges(chr$start, chr$end))
   strand(tfGRanges) = c(chr$strand)
   mcols(tfGRanges) = DataFrame(score=chr$score, pvalue=chr$pvalue)

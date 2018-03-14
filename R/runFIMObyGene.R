@@ -5,5 +5,5 @@
 #'@import shiny
 #'@export
 runFIMObyGene<-function(){
-  runApp("inst/shinyApps/")
+  runApp('~/github/FIMObyGene/inst/shinyApps')
 }
