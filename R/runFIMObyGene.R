@@ -6,5 +6,5 @@
 #'@param ip character string with inet ip address
 #'@export
 runFIMObyGene<-function(ip){
-  runApp('/inst/shinyApps/', host=ip)
+  runApp('/udd/reshg/github/FIMObyGene/inst/shinyApps/', host=ip)
 }
