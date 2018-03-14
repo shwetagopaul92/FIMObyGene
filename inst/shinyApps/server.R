@@ -121,7 +121,8 @@ plotTF<-function(mytf, mysymbol){
   dtrack=DataTrack(data=mysub$mcols.score, start=start(mysub), end=end(mysub),
                    chromosome = mychr, genome = "hg19", name = mytf)
   biomtrack <- BiomartGeneRegionTrack(genome = "hg19", chromosome = mychr, symbol=mysymbol, name=mysymbol)
-  tfp = plotTracks(list(gtrack, biomtrack, dtrack))
+  #tfp = plotTracks(list(gtrack, biomtrack, dtrack))
+  tfp = plotTracks(list(dtrack, gtrack, biomtrack))
 }
 
 
