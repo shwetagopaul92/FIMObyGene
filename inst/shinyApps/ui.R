@@ -18,7 +18,7 @@ shinyUI(fluidPage(
   sidebarLayout(position = "left",
                 sidebarPanel(width=4,
                              selectInput("transcriptionFactor", "Select Transcription Factor", named_tf),
-                             textInput("geneName", "Enter gene of interest"),
+                             textInput("geneName", "Enter gene of interest", value="ORMDL3"),
                              actionButton("geneModel", "Gene Model"),
                              #actionButton("subsetByoverlaps", "Subset By Overlaps"),
                              actionButton("tfmodel", "TF Model"),
