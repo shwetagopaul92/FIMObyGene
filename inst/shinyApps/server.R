@@ -144,10 +144,10 @@ shinyServer(function(input, output, session) {
     overlaps.df
   })
  
-  observeEvent(input$geneModel, {
-    updateTabsetPanel(session, "inTabset", selected ="panel2")
-    output$geneplot = renderPlot(plotGeneModel(input$geneName))
-  })
+  #observeEvent(input$geneModel, {
+   # updateTabsetPanel(session, "inTabset", selected ="panel2")
+    #output$geneplot = renderPlot(plotGeneModel(input$geneName))
+  #})
   
   observeEvent(input$tfmodel, {
     updateTabsetPanel(session, "inTabset", selected = "panel3")
