@@ -22,8 +22,6 @@ library(AnnotationFilter)
 # Load the data
 ########################
 
-data(chr)
-data(tf)
 data(named_tf)
 data(named_metadata_tf)
 
