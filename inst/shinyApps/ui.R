@@ -14,7 +14,7 @@ shinyUI(fluidPage(
   
   titlePanel("FIMObyGene"),
   sidebarLayout(position = "left",
-                sidebarPanel(width=4,
+                sidebarPanel(width=2,
                              selectInput("transcriptionFactor", "Select Transcription Factor", named_tf),
                              textInput("geneName", "Enter gene of interest", value="ORMDL3"),
                              #actionButton("geneModel", "Gene Model"),

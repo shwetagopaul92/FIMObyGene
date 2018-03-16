@@ -7,7 +7,7 @@
 runFIMObyGene(ip)
 }
 \arguments{
-\item{ip}{character string with inet ip address}
+\item{host}{character string with inet ip address}
 }
 \description{
 shiny interface to Kimbie's CISBP FIMO scan TF bed files
