@@ -4,7 +4,7 @@
 \alias{runFIMObyGene}
 \title{shiny interface to Kimbie's CISBP FIMO scan TF bed files}
 \usage{
-runFIMObyGene(ip)
+runFIMObyGene(host)
 }
 \arguments{
 \item{host}{character string with inet ip address}

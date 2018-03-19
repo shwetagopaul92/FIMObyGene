@@ -120,7 +120,7 @@ plotTF<-function(mytf, mysymbol){
                    chromosome = mychr, genome = "hg19", name = mytf)
   biomtrack <- BiomartGeneRegionTrack(genome = "hg19", chromosome = mychr, symbol=mysymbol, name=mysymbol)
   #tfp = plotTracks(list(gtrack, biomtrack, dtrack))
-  tfp = plotTracks(list(dtrack, gtrack, biomtrack))
+  tfp = plotTracks(list(dtrack, gtrack, biomtrack), sizes=c(2,2,5))
 }
 
 
