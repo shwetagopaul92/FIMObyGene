@@ -78,7 +78,7 @@ shinyServer(function(input, output, session) {
     chromosome = grGene@seqnames@values
     #grTf = tfDrill(input$transcriptionFactor, chromosome)
     #chrbed = importFIMO_local_split(input$transcriptionFactor,chromosome)
-    tf = TabixFile(paste0("/udd/reshg/tbifiles/tabix_all_tf_new/",input$transcriptionFactor,".02_sort.bed.gz"))
+    tf = Rsamtools::TabixFile(paste0("/udd/reshg/tbifiles/tabix_all_tf_new/",input$transcriptionFactor,".02_sort.bed.gz"))
     tfGRanges = importFIMO(tf, GenomicRanges::GRanges(chromosome, IRanges::IRanges(1e6,11e6)))
     #myfile = paste0("/udd/reshg/chrfiles_tf/",input$transcriptionFactor,"/",chromosome,".bed")
     #chrbed = fread(myfile)
