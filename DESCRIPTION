@@ -1,7 +1,7 @@
 Package: FIMObyGene
 Title: FIMObyGene
 Description: Shiny Interface to explore Transcription Factor data.
-Version: 0.0.9
+Version: 0.1.0
 Author: Shweta Gopaulakrishnan
 Depends: shiny
 Imports: TFutils, GenomicRanges, Gviz, biovizBase, ensembldb, GenomeInfoDb , AnnotationFilter
