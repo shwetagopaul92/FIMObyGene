@@ -71,23 +71,22 @@ shinyServer(function(input, output, session) {
   output$mytable1 = renderDataTable({
     require(GenomicRanges)
     require(TFutils)
-    #grGene = genemodel(input$geneName)
+    require(Rsamtools)
     genemodel.df = genemodelDF(input$geneName, EnsDb.Hsapiens.v75::EnsDb.Hsapiens.v75)
     grGene = makeGRangesFromDataFrame(genemodel.df)
     seqlevels(grGene) <- sub("","chr",seqlevels(grGene))
     chromosome = grGene@seqnames@values
-    #grTf = tfDrill(input$transcriptionFactor, chromosome)
-    #chrbed = importFIMO_local_split(input$transcriptionFactor,chromosome)
     tf = Rsamtools::TabixFile(paste0("/udd/reshg/tbifiles/tabix_all_tf_new/",input$transcriptionFactor,".02_sort.bed.gz"))
-    tfGRanges = importFIMO(tf, GenomicRanges::GRanges(chromosome, IRanges::IRanges(1e6,11e6)))
+    outputOverlaps = importFIMO(tf, grGene)
+    overlaps.df = as.data.frame(outputOverlaps)
     #myfile = paste0("/udd/reshg/chrfiles_tf/",input$transcriptionFactor,"/",chromosome,".bed")
     #chrbed = fread(myfile)
     #chr = plyr::rename(chrbed, c("V1"= "chr","V2"="start","V3"="end","V4"="interval","V5"="score","V6"="strand","V7"="pvalue"))
     #tfGRanges = GRanges(chr$chr, IRanges(chr$start, chr$end))
     #strand(tfGRanges) = c(chr$strand)
     #mcols(tfGRanges) = DataFrame(score=chr$score, pvalue=chr$pvalue)
-    outputOverlaps = subsetByOverlaps(tfGRanges, grGene)
-    overlaps.df = as.data.frame(outputOverlaps)
+    #outputOverlaps = subsetByOverlaps(tfGRanges, grGene)
+    #overlaps.df = as.data.frame(outputOverlaps)
     output$downloadData <- downloadHandler(
       filename = function() { paste(input$downloadName, Sys.Date(), ".csv", sep="")},
       content = function(file) {
