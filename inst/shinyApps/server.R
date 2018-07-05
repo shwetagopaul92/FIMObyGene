@@ -77,7 +77,7 @@ shinyServer(function(input, output, session) {
     seqlevels(grGene) <- sub("","chr",seqlevels(grGene))
     chromosome = grGene@seqnames@values
     tf = Rsamtools::TabixFile(paste0("/udd/reshg/tbifiles/tabix_all_tf_new/",input$transcriptionFactor,".02_sort.bed.gz"))
-    outputOverlaps = importFIMO(tf, grGene)
+    outputOverlaps = importFIMO(tf, range(grGene))
     overlaps.df = as.data.frame(outputOverlaps)
     #myfile = paste0("/udd/reshg/chrfiles_tf/",input$transcriptionFactor,"/",chromosome,".bed")
     #chrbed = fread(myfile)
