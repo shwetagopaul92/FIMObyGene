@@ -16,8 +16,6 @@ shinyUI(fluidPage(
                 sidebarPanel(width=4,
                              selectInput("transcriptionFactor", "Select Transcription Factor", named_tf),
                              textInput("geneName", "Enter gene of interest", value="ORMDL3"),
-                             #actionButton("geneModel", "Gene Model"),
-                             #actionButton("subsetByoverlaps", "Subset By Overlaps"),
                              actionButton("tfmodel", "TF Model"),
                              textInput("downloadName", "Download Name"),
                              downloadButton("downloadData", "Download Data")
@@ -27,7 +25,6 @@ shinyUI(fluidPage(
                 mainPanel(
                   tabsetPanel(id="inTabset",
                               tabPanel("Scored Motifs in Transcribed Region", value="panel1", DT::dataTableOutput("mytable1")),
-                              #tabPanel("Gene Model", value="panel2", plotOutput("geneplot")),
                               tabPanel("TF Model", value="panel2", plotOutput("tfplot")),
                               tabPanel("Metadata",value="panel3", DT::dataTableOutput("mytable2"))
                   )
