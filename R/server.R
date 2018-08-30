@@ -47,10 +47,10 @@ shinyServer(function(input, output, session) {
     overlaps.df
   })
   
-  observeEvent(input$tfmodel, {
-    updateTabsetPanel(session, "inTabset", selected = "panel2")
-    output$tfplot = renderPlot(plotTF(input$transcriptionFactor, input$geneName))
-  })
+  #observeEvent(input$tfmodel, {
+   # updateTabsetPanel(session, "inTabset", selected = "panel2")
+  output$tfplot = renderPlot(plotTF(input$transcriptionFactor, input$geneName))
+  #})
   
   output$mytable2 = renderDataTable(as.data.frame(metadata_tf), options=list(scrollX=TRUE,pageLength=25))
   
