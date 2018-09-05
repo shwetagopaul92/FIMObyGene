@@ -50,7 +50,8 @@ ggvisForSymbol = function (sym, resource = EnsDb.Hsapiens.v79::EnsDb.Hsapiens.v7
   ardir = ifelse(strn=="+", "last", "first")
   pl = ggplot(df, aes(x = range, y = yval)) + 
     geom_segment(aes(x = st, y = yv, xend = en, yend = yv, colour = sym),       data = newdf, arrow=arrow(ends=ardir, length=unit(arrmm, "mm")))
-  pl + xlab(as.character(seqnames(exs)[1]))
+  ggplotly(pl)
+  #pl + xlab(as.character(seqnames(exs)[1]))
 }
 
 
