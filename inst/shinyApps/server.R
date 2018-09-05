@@ -21,6 +21,38 @@ plotTF<-function(mytf, mysymbol){
   tfp = plotTracks(list(dtrack, gtrack, biomtrack), sizes=c(2,2,5))
 }
 
+ggvisForSymbol = function (sym, resource = EnsDb.Hsapiens.v79::EnsDb.Hsapiens.v79, 
+                           columnsKept = c("gene_id", "tx_id"), yval = 1, arrmm=1.5, viewtype="transcripts", ...) 
+{
+  exs = GenomicFeatures::exons(resource, filter = SymbolFilter(sym), columns = columnsKept, 
+                               ...)
+  if (viewtype == "exons") exs = unique(exs)
+  rd = reduce(exs)
+  fo = findOverlaps(rd, exs)
+  gr = split(subjectHits(fo), queryHits(fo))
+  pp = function(n) (seq_len(n)-1)/n
+  st = start(exs)
+  en = end(exs)
+  if (viewtype == "exons") {
+    ys = lapply(gr, function(x) pp(length(x)))
+    yvs = unlist(ys) #1+(0:(nel-1))/nel
+  }
+  else if (viewtype == "transcripts") {
+    tnms = exs$tx_id
+    ft = factor(tnms)
+    yvs = (as.numeric(ft)-1)/length(levels(ft))
+  }
+  else stop("viewtype not %in% c('exons', 'transcripts')")
+  newdf = data.frame(st, en, yv = yvs, sym = sym)
+  rng = range(exs)
+  df = data.frame(range = c(start(rng), end(rng)), yval = rep(yval,2)) 
+  strn = as.character(strand(exs)[1])
+  ardir = ifelse(strn=="+", "last", "first")
+  pl = ggplot(df, aes(x = range, y = yval)) + 
+    geom_segment(aes(x = st, y = yv, xend = en, yend = yv, colour = sym),       data = newdf, arrow=arrow(ends=ardir, length=unit(arrmm, "mm")))
+  pl + xlab(as.character(seqnames(exs)[1]))
+}
+
 
 ########################
 # Define the server logic
@@ -47,10 +79,12 @@ shinyServer(function(input, output, session) {
     overlaps.df
   })
   
-  observeEvent(input$tfmodel, {
-    updateTabsetPanel(session, "inTabset", selected = "panel2")
-    output$tfplot = renderPlot(plotTF(input$transcriptionFactor, input$geneName))
-  })
+  #observeEvent(input$tfmodel, {
+  # updateTabsetPanel(session, "inTabset", selected = "panel2")
+  
+  output$tfplot = renderPlot(plotTF(input$transcriptionFactor, input$geneName))
+  
+  output$ggPlot = renderPlot(ggvisForSymbol(input$geneName))
   
   output$mytable2 = renderDataTable(as.data.frame(metadata_tf), options=list(scrollX=TRUE,pageLength=25))
   

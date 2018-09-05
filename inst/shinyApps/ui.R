@@ -13,10 +13,9 @@ shinyUI(fluidPage(
   
   titlePanel("FIMObyGene"),
   sidebarLayout(position = "left",
-                sidebarPanel(width=4,
+                sidebarPanel(width=3,
                              selectInput("transcriptionFactor", "Select Transcription Factor", named_tf),
                              textInput("geneName", "Enter gene of interest", value="ORMDL3"),
-                             actionButton("tfmodel", "TF Model"),
                              textInput("downloadName", "Download Name"),
                              downloadButton("downloadData", "Download Data")
                 ),
@@ -26,6 +25,7 @@ shinyUI(fluidPage(
                   tabsetPanel(id="inTabset",
                               tabPanel("Scored Motifs in Transcribed Region", value="panel1", DT::dataTableOutput("mytable1")),
                               tabPanel("TF Model", value="panel2", plotOutput("tfplot")),
+                              tabPanel("Gene Model", value="panel3", plotOutput("ggPlot")),
                               tabPanel("Metadata",value="panel3", DT::dataTableOutput("mytable2"))
                   )
                 )
