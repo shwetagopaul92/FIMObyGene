@@ -85,7 +85,8 @@ shinyServer(function(input, output, session) {
   
   output$tfplot = renderPlot(plotTF(input$transcriptionFactor, input$geneName))
   
-  output$ggPlot = renderPlot(ggvisForSymbol(input$geneName))
+  require(plotly)
+  output$ggPlot = renderPlotly(ggvisForSymbol(input$geneName))
   
   output$mytable2 = renderDataTable(as.data.frame(metadata_tf), options=list(scrollX=TRUE,pageLength=25))
   
