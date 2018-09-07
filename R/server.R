@@ -49,11 +49,11 @@ ggvisForSymbol = function (sym, resource = EnsDb.Hsapiens.v79::EnsDb.Hsapiens.v7
   ardir = ifelse(strn=="+", "last", "first")
   pl = ggplot(df, aes(x = range, y = yval)) + 
     geom_segment(aes(x = st, y = yv, xend = en, yend = yv, colour = sym),       data = newdf, arrow=arrow(ends=ardir, length=unit(arrmm, "mm")))
-  ggplotly(pl)
-  #pl + xlab(as.character(seqnames(exs)[1]))
+  #ggplotly(pl)
+  pl + xlab(as.character(seqnames(exs)[1]))
 }
 
-enc690ByFactor = function (factor = "CEBPB", filtrange=NULL) 
+enc690ByFactor = function (factor = myTF, filtrange=NULL) 
 {
   data(encode690)
   encode690 = as.data.frame(encode690)
@@ -91,11 +91,11 @@ enc690ByFactor = function (factor = "CEBPB", filtrange=NULL)
   ee$cell = factor(as.character(cls))
   ee$yval = 1+(as.numeric(factor(as.character(cls)))-1)/length(unique(cls))
   edb = EnsDb.Hsapiens.v75::EnsDb.Hsapiens.v75
-  ggvisForSymbol("BRCA2", resource=edb)
-      #geom_segment(aes(x=start, xend=end, y=yval, yend=yval,
-       #     group=cell, colour=cell), data=ee, size=2.5) +
-      #theme(axis.text.y = element_blank(), axis.title.y=element_blank()) + 
-       #   ylim(-.5,2) + ggtitle("CEBPB binding near BRCA2")
+  ggvisForSymbol("BRCA2", resource=edb) +
+    geom_segment(aes(x=start, xend=end, y=yval, yend=yval,
+                     group=cell, colour=cell), data=ee, size=2.5) +
+    theme(axis.text.y = element_blank(), axis.title.y=element_blank()) + 
+    ylim(-.5,2) + ggtitle(paste0(factor," binding near BRCA2"))
   
 }
 
@@ -129,7 +129,8 @@ shinyServer(function(input, output, session) {
   
   output$tfplot = renderPlot(plotTF(input$transcriptionFactor, input$geneName))
   
-  output$tfgenePlot = renderPlot(enc690ByFactor())
+  output$tfgenePlot = renderPlot(enc690ByFactor(input$encodeTF))
+  
   require(plotly)
   output$ggPlot = renderPlotly(ggvisForSymbol(input$geneName))
   
