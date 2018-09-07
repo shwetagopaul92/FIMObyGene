@@ -27,7 +27,7 @@ shinyUI(fluidPage(
                   tabsetPanel(id="inTabset",
                               tabPanel("Scored Motifs in Transcribed Region", value="panel1", DT::dataTableOutput("mytable1")),
                               tabPanel("TF Model", value="panel2", plotOutput("tfplot")),
-                              tabPanel("Gene Model", value="panel3", plotlyOutput("ggPlot")),
+                              #tabPanel("Gene Model", value="panel3", plotlyOutput("ggPlot")),
                               tabPanel("GeneTF Model", value="panel4", plotOutput("tfgenePlot")),
                               tabPanel("Metadata",value="panel3", DT::dataTableOutput("mytable2"))
                   )
