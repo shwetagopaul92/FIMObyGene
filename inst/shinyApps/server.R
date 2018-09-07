@@ -95,7 +95,7 @@ enc690ByFactor = function (factor = myTF, filtrange=NULL)
     geom_segment(aes(x=start, xend=end, y=yval, yend=yval,
                      group=cell, colour=cell), data=ee, size=2.5) +
     theme(axis.text.y = element_blank(), axis.title.y=element_blank()) + 
-    ylim(-.5,2) + ggtitle("CEBPB binding near BRCA2")
+    ylim(-.5,2) + ggtitle(paste0(factor," binding near BRCA2"))
   
 }
 
