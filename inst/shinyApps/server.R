@@ -91,11 +91,11 @@ enc690ByFactor = function (factor = "CEBPB", filtrange=NULL)
   ee$cell = factor(as.character(cls))
   ee$yval = 1+(as.numeric(factor(as.character(cls)))-1)/length(unique(cls))
   edb = EnsDb.Hsapiens.v75::EnsDb.Hsapiens.v75
-  ggvisForSymbol("BRCA2", resource=edb) + 
-    geom_segment(aes(x=start, xend=end, y=yval, yend=yval,
-                     group=cell, colour=cell), data=ee, size=2.5) +
-    theme(axis.text.y = element_blank(), axis.title.y=element_blank()) + 
-    ylim(-.5,2) + ggtitle("CEBPB binding near BRCA2")
+  ggvisForSymbol("BRCA2", resource=edb) +
+        geom_segment(aes(x=start, xend=end, y=yval, yend=yval,
+               group=cell, colour=cell), data=ee, size=2.5) +
+         theme(axis.text.y = element_blank(), axis.title.y=element_blank()) + 
+            ylim(-.5,2) + ggtitle("CEBPB binding near BRCA2")
   
 }
 
