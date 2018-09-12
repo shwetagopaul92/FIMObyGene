@@ -48,7 +48,7 @@ ggvisForSymbol = function (sym, resource = EnsDb.Hsapiens.v79::EnsDb.Hsapiens.v7
   strn = as.character(strand(exs)[1])
   ardir = ifelse(strn=="+", "last", "first")
   pl = ggplot(df, aes(x = range, y = yval)) + 
-    geom_segment(aes(x = st, y = yv, xend = en, yend = yv, colour = sym),       data = newdf, arrow=arrow(ends=ardir, length=unit(arrmm, "mm")))
+    geom_segment(aes(x = st, y = yv, xend = en, yend = yv, colour = sym), data = newdf, arrow=arrow(ends=ardir, length=unit(arrmm, "mm")))
   #ggplotly(pl)
   pl + xlab(as.character(seqnames(exs)[1]))
 }
@@ -98,7 +98,7 @@ enc690ByFactor = function (factor=myTF,sym=mysymbol,filtrange=NULL)
     geom_segment(aes(x=start, xend=end, y=yval, yend=yval,
                      group=cell, colour=cell), data=ee, size=2.5) +
     theme(axis.text.y = element_blank(), axis.title.y=element_blank()) + 
-    ylim(-.5,2) + ggtitle(paste0(factor," binding near", sym))
+    ylim(-.5,2) + ggtitle(paste0(factor," binding near ", sym))
   
 }
 
