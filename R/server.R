@@ -53,7 +53,7 @@ ggvisForSymbol = function (sym, resource = EnsDb.Hsapiens.v79::EnsDb.Hsapiens.v7
   pl + xlab(as.character(seqnames(exs)[1]))
 }
 
-enc690ByFactor = function (factor = myTF, filtrange=NULL) 
+enc690ByFactor = function (factor=myTF,sym=mysymbol,filtrange=NULL) 
 {
   data(encode690)
   encode690 = as.data.frame(encode690)
@@ -79,10 +79,13 @@ enc690ByFactor = function (factor = myTF, filtrange=NULL)
   cat("\n")
   names(l1) = ids
   sapply(l1,length)
-  gm = GRanges("chr17", IRanges(38077296, 38083884))
+  #gm = GRanges("chr17", IRanges(38077296, 38083884))
   #l2 = lapply(l1, function(x) subsetByOverlaps(x, gm+10000))
   #l3 = enc690ByFactor(filtrange=gm+10000)
-  br = GRanges("chr13", IRanges(32889617, 32973809)) # BRCA2
+  mygene = genemodelDF(sym, EnsDb.Hsapiens.v75::EnsDb.Hsapiens.v75)
+  mychr = paste0("chr",mygene$seqnames[[2]])
+  br = GRanges(mychr, IRanges(start=min(mygene$start),end=max(mygene$end)))
+  #br = GRanges("chr13", IRanges(32889617, 32973809)) # BRCA2
   dd = lapply(l1, function(x) subsetByOverlaps(x, br+10000))
   lens = sapply(dd,length)
   cls = sapply(dd, function(x) metadata(x)$cell)
@@ -91,11 +94,11 @@ enc690ByFactor = function (factor = myTF, filtrange=NULL)
   ee$cell = factor(as.character(cls))
   ee$yval = 1+(as.numeric(factor(as.character(cls)))-1)/length(unique(cls))
   edb = EnsDb.Hsapiens.v75::EnsDb.Hsapiens.v75
-  ggvisForSymbol("BRCA2", resource=edb) +
+  ggvisForSymbol(sym, resource=edb) +
     geom_segment(aes(x=start, xend=end, y=yval, yend=yval,
                      group=cell, colour=cell), data=ee, size=2.5) +
     theme(axis.text.y = element_blank(), axis.title.y=element_blank()) + 
-    ylim(-.5,2) + ggtitle(paste0(factor," binding near BRCA2"))
+    ylim(-.5,2) + ggtitle(paste0(factor," binding near", sym))
   
 }
 
@@ -129,7 +132,7 @@ shinyServer(function(input, output, session) {
   
   output$tfplot = renderPlot(plotTF(input$transcriptionFactor, input$geneName))
   
-  output$tfgenePlot = renderPlot(enc690ByFactor(input$encodeTF))
+  output$tfgenePlot = renderPlot(enc690ByFactor(input$encodeTF, input$geneName))
   
   require(plotly)
   output$ggPlot = renderPlotly(ggvisForSymbol(input$geneName))
